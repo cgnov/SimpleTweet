@@ -7,6 +7,8 @@
     <string name="intent_host">cprest</string>
     <string name="tweet">Tweet</string>
     <string name="compose">Compose</string>
-    <string name="tweetHint">What\'s happening?</string>
+    <string name="tweet_hint">What\'s happening?</string>
+    <string name="first_image_desc">First image stored in tweet</string>
+    <string name="user_profile_picture">User profile picture</string>
 
 </resources>
