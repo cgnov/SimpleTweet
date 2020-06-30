@@ -27,16 +27,14 @@ public class Tweet {
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
         if(jsonObject.getJSONObject("entities").has("media")) {
             JSONArray media = jsonObject.getJSONObject("entities").getJSONArray("media");
-            if(media!=null){
-                JSONObject nextMedia;
-                int nextMediaIndex = 0;
-                while(tweet.mediaLink==null && nextMediaIndex<media.length()) {
-                    nextMedia = (JSONObject) media.get(nextMediaIndex);
-                    if(nextMedia.getString("type").equals("photo")){
-                        tweet.mediaLink = nextMedia.getString("media_url_https");
-                    }
-                    nextMediaIndex++;
+            JSONObject nextMedia;
+            int nextMediaIndex = 0;
+            while(tweet.mediaLink==null && nextMediaIndex<media.length()) {
+                nextMedia = (JSONObject) media.get(nextMediaIndex);
+                if (nextMedia.getString("type").equals("photo")) {
+                    tweet.mediaLink = nextMedia.getString("media_url_https");
                 }
+                nextMediaIndex++;
             }
         }
         return tweet;
