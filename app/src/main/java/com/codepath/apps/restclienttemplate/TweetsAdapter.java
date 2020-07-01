@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import java.text.ParseException;
@@ -21,6 +23,7 @@ import java.util.Locale;
 
 
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder> {
+    final int MEDIA_RADIUS = 100;
     Context context;
     List<Tweet> tweets;
 
@@ -69,6 +72,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivProfileImage;
         TextView tvBody;
+        TextView tvDisplayName;
         TextView tvScreenName;
         TextView tvRelativeTime;
         ImageView ivFirstPhoto;
@@ -77,6 +81,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             super(itemView);
             ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
             tvBody = itemView.findViewById(R.id.tvBody);
+            tvDisplayName = itemView.findViewById(R.id.tvDisplayName);
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
             tvRelativeTime = itemView.findViewById(R.id.tvRelativeTime);
             ivFirstPhoto = itemView.findViewById(R.id.ivFirstPhoto);
@@ -85,11 +90,13 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         public void bind(Tweet tweet) {
             tvBody.setText(tweet.body);
             tvScreenName.setText(tweet.user.screenName);
-            Glide.with(context).load(tweet.user.profileImageUrl).into(ivProfileImage);
+            tvDisplayName.setText(tweet.user.name);
+            Glide.with(context).load(tweet.user.profileImageUrl).transform(new CircleCrop()).into(ivProfileImage);
             tvRelativeTime.setText(getRelativeTimeAgo(tweet.createdAt));
             if(tweet.mediaLink!=null) {
                 ivFirstPhoto.setVisibility(View.VISIBLE);
-                Glide.with(context).load(tweet.mediaLink).into(ivFirstPhoto);
+
+                Glide.with(context).load(tweet.mediaLink).transform(new RoundedCorners(MEDIA_RADIUS)).into(ivFirstPhoto);
             } else {
                 ivFirstPhoto.setVisibility(View.GONE);
             }
@@ -105,12 +112,12 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             try {
                 long dateMillis = sf.parse(rawJsonDate).getTime();
                 relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis,
-                        System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
+                        System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE).toString();
             } catch (ParseException e) {
                 e.printStackTrace();
             }
 
-            return relativeDate;
+            return String.format("· %s", relativeDate);
         }
     }
 }

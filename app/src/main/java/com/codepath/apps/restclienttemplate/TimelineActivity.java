@@ -2,6 +2,7 @@ package com.codepath.apps.restclienttemplate;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -11,10 +12,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.github.scribejava.apis.TwitterApi;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,6 +37,7 @@ public class TimelineActivity extends AppCompatActivity {
     RecyclerView rvTweets;
     List<Tweet> tweets;
     TweetsAdapter adapter;
+    FloatingActionButton fabCompose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,15 @@ public class TimelineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_timeline);
 
         client = TwitterApp.getRestClient(this);
+
+        fabCompose = findViewById(R.id.fabCompose);
+        fabCompose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(TimelineActivity.this, ComposeActivity.class);
+                startActivityForResult(i, REQUEST_CODE);
+            }
+        });
 
         // Find the recycler view
         rvTweets = findViewById(R.id.rvTweets);
@@ -52,6 +65,9 @@ public class TimelineActivity extends AppCompatActivity {
         // Recycler view setup: layout manager and adapter
         rvTweets.setLayoutManager(new LinearLayoutManager(this));
         rvTweets.setAdapter(adapter);
+
+        DividerItemDecoration tweetSeparator = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        rvTweets.addItemDecoration(tweetSeparator);
 
         populateHomeTimeline();
 
@@ -84,20 +100,16 @@ public class TimelineActivity extends AppCompatActivity {
         });
     }
 
+    // Inflate menu here if using custom menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
+    // Checks if an option in the menu was clicked
+    // Create intent here if compose button is in menu not as fab
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.miCompose){
-            //Navigate to the compose activity
-            Intent i = new Intent(this, ComposeActivity.class);
-            startActivityForResult(i, REQUEST_CODE);
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 
