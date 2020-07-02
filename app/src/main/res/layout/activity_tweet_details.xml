@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TweetDetailsActivity">
+
+    <ImageView
+        android:id="@+id/ivDetProfileImage"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/user_profile_picture"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvDetDisplayName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_toEndOf="@+id/ivDetProfileImage"
+        android:singleLine="true"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivDetProfileImage"
+        app:layout_constraintTop_toTopOf="@+id/ivDetProfileImage"
+        tools:text="Example Display Name" />
+
+    <TextView
+        android:id="@+id/tvDetScreenName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/tvDetDisplayName"
+        android:singleLine="true"
+        android:textColor="@color/medium_gray"
+        app:layout_constraintStart_toStartOf="@+id/tvDetDisplayName"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetDisplayName"
+        tools:text="examplehandle" />
+
+    <TextView
+        android:id="@+id/tvDetAbsoluteTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@+id/tvDetScreenName"
+        android:singleLine="true"
+        android:textColor="@color/medium_gray"
+        app:layout_constraintStart_toStartOf="@+id/ivDetProfileImage"
+        app:layout_constraintTop_toBottomOf="@+id/ivDetFirstPhoto"
+        tools:text="5:51PM · 12/10/18" />
+
+    <TextView
+        android:id="@+id/tvDetBody"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDetScreenName"
+        android:layout_alignStart="@+id/tvDetDisplayName"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvDetDisplayName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivDetProfileImage"
+        tools:text="This is a content of a tweet" />
+
+    <ImageView
+        android:id="@+id/ivDetFirstPhoto"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDetBody"
+        android:layout_alignStart="@+id/tvDetBody"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="8dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/first_image_desc"
+        app:layout_constraintEnd_toEndOf="@+id/tvDetDisplayName"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tvDetBody"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetBody"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
