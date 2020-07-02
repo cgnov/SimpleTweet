@@ -1,9 +1,11 @@
 package com.codepath.apps.restclienttemplate;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -46,6 +48,7 @@ public class TweetDetailsActivity extends AppCompatActivity {
     ImageButton ibLike;
     TwitterClient client;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +70,9 @@ public class TweetDetailsActivity extends AppCompatActivity {
         tvDisplayName.setText(tweet.user.name);
         tvLikeCount.setText(String.valueOf(tweet.numLikes));
         tvRetweetCount.setText(String.valueOf(tweet.numRetweets));
+        if(tweet.liked){
+            ibLike.setColorFilter(getColor(R.color.medium_red));
+        }
         Glide.with(this).load(tweet.user.profileImageUrl).transform(new CircleCrop()).into(ivProfileImage);
         String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
         SimpleDateFormat oldFormat = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
@@ -85,6 +91,8 @@ public class TweetDetailsActivity extends AppCompatActivity {
         } else {
             ivFirstPhoto.setVisibility(View.GONE);
         }
+
+        // Set up like button click listener
         client = TwitterApp.getRestClient(this);
         ibLike.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +100,7 @@ public class TweetDetailsActivity extends AppCompatActivity {
                 if(tweet.liked){
                     tvLikeCount.setText(String.valueOf(Integer.parseInt((String) tvLikeCount.getText())-1));
                     tweet.liked = false;
+                    ibLike.setColorFilter(getColor(R.color.medium_gray));
                     client.unlikeTweet(tweet.id, new JsonHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Headers headers, JSON json) {
@@ -103,10 +112,12 @@ public class TweetDetailsActivity extends AppCompatActivity {
                             Log.e(TAG, "onFailure: " + response, throwable);
                             tvLikeCount.setText(String.valueOf(Integer.parseInt((String) tvLikeCount.getText())+1));
                             tweet.liked = true;
+                            ibLike.setColorFilter(getColor(R.color.medium_red));
                         }
                     });
                 } else {
                     tweet.liked = true;
+                    ibLike.setColorFilter(getColor(R.color.medium_red));
                     tvLikeCount.setText(String.valueOf(Integer.parseInt((String) tvLikeCount.getText())+1));
                     client.likeTweet(tweet.id, new JsonHttpResponseHandler() {
                         @Override
@@ -119,6 +130,7 @@ public class TweetDetailsActivity extends AppCompatActivity {
                             Log.e(TAG, "onFailure: " + response, throwable);
                             tweet.liked = false;
                             tvLikeCount.setText(String.valueOf(Integer.parseInt((String) tvLikeCount.getText())-1));
+                            ibLike.setColorFilter(getColor(R.color.medium_gray));
                         }
                     });
                 }

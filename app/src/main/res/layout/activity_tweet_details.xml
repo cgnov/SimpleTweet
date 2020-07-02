@@ -158,7 +158,7 @@
         android:layout_width="37dp"
         android:layout_height="38dp"
         android:adjustViewBounds="true"
-        android:backgroundTint="@android:color/white"
+        android:backgroundTint="#00FFFFFF"
         android:contentDescription="@string/like_button"
         android:tint="@color/medium_gray"
         app:layout_constraintStart_toStartOf="@+id/ivDetProfileImage"
