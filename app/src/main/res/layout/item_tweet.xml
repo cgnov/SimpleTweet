@@ -46,24 +46,26 @@
 
     <TextView
         android:id="@+id/tvRelativeTime"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/ivProfileImage"
         android:layout_marginStart="4dp"
         android:layout_toEndOf="@+id/tvScreenName"
         android:singleLine="true"
         android:textColor="@color/medium_gray"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvScreenName"
         app:layout_constraintTop_toTopOf="@+id/ivProfileImage"
         tools:text="9hr" />
 
     <TextView
         android:id="@+id/tvBody"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvScreenName"
         android:layout_alignStart="@+id/tvDisplayName"
         android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvDisplayName"
         app:layout_constraintTop_toBottomOf="@+id/tvDisplayName"
         tools:text="This is a content of a tweet" />
