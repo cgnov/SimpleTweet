@@ -6,6 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".TweetDetailsActivity">
 
+    <TextView
+        android:id="@+id/tvDetLikeCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/tvDetRetweetText"
+        app:layout_constraintTop_toTopOf="@+id/tvDetRetweetCount"
+        tools:text="10K" />
+
+    <TextView
+        android:id="@+id/tvDetLikeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/likes"
+        app:layout_constraintStart_toEndOf="@+id/tvDetLikeCount"
+        app:layout_constraintTop_toTopOf="@+id/tvDetRetweetCount" />
+
     <ImageView
         android:id="@+id/ivDetProfileImage"
         android:layout_width="50dp"
@@ -89,5 +108,58 @@
         app:layout_constraintStart_toStartOf="@+id/tvDetBody"
         app:layout_constraintTop_toBottomOf="@+id/tvDetBody"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="@+id/tvDetDisplayName"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/ivDetProfileImage"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetAbsoluteTime" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="@+id/tvDetDisplayName"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/ivDetProfileImage"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetRetweetCount" />
+
+    <TextView
+        android:id="@+id/tvDetRetweetCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/ivDetProfileImage"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        tools:text="9K" />
+
+    <TextView
+        android:id="@+id/tvDetRetweetText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/retweets"
+        app:layout_constraintStart_toEndOf="@+id/tvDetRetweetCount"
+        app:layout_constraintTop_toTopOf="@+id/tvDetRetweetCount" />
+
+    <ImageButton
+        android:id="@+id/ibDetLike"
+        android:layout_width="37dp"
+        android:layout_height="38dp"
+        android:adjustViewBounds="true"
+        android:backgroundTint="@android:color/white"
+        android:contentDescription="@string/like_button"
+        android:tint="@color/medium_gray"
+        app:layout_constraintStart_toStartOf="@+id/ivDetProfileImage"
+        app:layout_constraintTop_toBottomOf="@+id/divider2"
+        app:srcCompat="@drawable/ic_vector_heart_stroke" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

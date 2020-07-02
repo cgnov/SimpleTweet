@@ -6,9 +6,9 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -74,6 +74,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
 
     // Define a ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView ivRetweeted;
+        TextView tvRetweetedStatus;
         ImageView ivProfileImage;
         TextView tvBody;
         TextView tvDisplayName;
@@ -83,6 +85,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            ivRetweeted = itemView.findViewById(R.id.ivRetweeted);
+            tvRetweetedStatus = itemView.findViewById(R.id.tvRetweetedStatus);
             ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
             tvBody = itemView.findViewById(R.id.tvBody);
             tvDisplayName = itemView.findViewById(R.id.tvDisplayName);
@@ -92,6 +96,14 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         }
 
         public void bind(final Tweet tweet) {
+            if(tweet.retweetedStatus){
+                ivRetweeted.setVisibility(View.VISIBLE);
+                tvRetweetedStatus.setVisibility(View.VISIBLE);
+                tvRetweetedStatus.setText(String.format("%s Retweeted", tweet.retweetUser.name));
+            } else {
+                ivRetweeted.setVisibility(View.GONE);
+                tvRetweetedStatus.setVisibility(View.GONE);
+            }
             tvBody.setText(tweet.body);
             tvScreenName.setText(tweet.user.screenName);
             tvDisplayName.setText(tweet.user.name);

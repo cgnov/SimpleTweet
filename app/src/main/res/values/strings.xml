@@ -10,5 +10,9 @@
     <string name="tweet_hint">What\'s happening?</string>
     <string name="first_image_desc">First image stored in tweet</string>
     <string name="user_profile_picture">User profile picture</string>
+    <string name="likes">Likes</string>
+    <string name="retweets">Retweets</string>
+    <string name="like_button">Like button</string>
+    <string name="retweet_symbol">Retweet symbol</string>
 
 </resources>
